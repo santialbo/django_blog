@@ -1,0 +1,58 @@
+{% extends "blog.html" %}
+
+{% block main_col %}
+<div class="blog-entry">
+    <div class="entry-title">
+        <h3><a href="/blog/entry/{{entry.id}}">{{entry.title}}</a>
+            <small>by <a href="/blog/author/{{entry.author.name}}">{{entry.author.name}}</a> on {{entry.date.day}}/{{entry.date.month}}/{{entry.date.year}}
+            </small>
+        </h3>
+    </div>
+    <div class="entry-text">
+        {{entry.text_html|safe}}
+    </div>
+    <div class="entry-footer row-fluid">
+        <div class="tags span10">{% for tag in entry.tags.all %} <a href="/blog/tag/{{tag.name}}" class="label label-success">{{tag.name}}</a> {% endfor %}
+        </div>
+    </div>
+</div>
+<div>
+    <h4>
+        {% if entry.comments.count == 0 %}
+            No comments
+        {% elif entry.comments.count == 1 %}
+            1 comment
+        {% else %}
+            {{entry.comments.count}} comments
+        {% endif %}
+    </h4>
+    {% for comment in entry.comments %}
+        <div class="comment">
+            <div class="comment-header">#{{forloop.counter}} <span class="comment-author">{{comment.name}}</span> wrote on {{comment.date.day}}/{{comment.date.month}}/{{comment.date.year}}:</div>
+            <div class="comment-text">{{comment.comment}}</div>
+        </div>
+    {% endfor %}
+    <form class="form-horizontal" action="comment/" method="POST">{% csrf_token %}
+        <fieldset>
+        <div class="control-group">
+            <label for="name" class="control-label">Name</label>
+            <div class="controls">
+                <input name="name" type="text" class="span5">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="comment" class="control-label">Comment</label>
+            <div class="controls">
+                <textarea name="comment" id="" rows="4" class="span5"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-success">Send comment</button>
+            </div>
+        </div>
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}

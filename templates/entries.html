@@ -1,0 +1,47 @@
+{% extends "blog.html" %}
+
+{% block main_col %}
+{% for entry in entries %}
+    <div class="blog-entry">
+        <div class="entry-title">
+            <div>
+                <h3><a href="/blog/entry/{{entry.id}}">{{entry.title}}</a>
+                <small>by <a href="/blog/author/{{entry.author.name}}">{{entry.author.name}}</a> on {{entry.date.day}}/{{entry.date.month}}/{{entry.date.year}}
+                </small>
+                </h3>
+            </div>
+        </div>
+        <div class="entry-text">
+            {{entry.summary_html|safe}}
+        </div>
+        <div class="entry-footer row-fluid">
+            <div class="span10">
+                <i class="icon-comment"></i>
+                <a href="/blog/entry/{{entry.id}}#comments">
+                    {% if entry.comments.count == 0 %}
+                        No comments
+                    {% elif entry.comments.count == 1 %}
+                        1 comment
+                    {% else %}
+                        {{entry.comments.count}} comments
+                    {% endif %}
+                </a><h5>Tags: {% for tag in entry.tags.all %} <a href="/blog/tag/{{tag.name}}" class="label label-success">{{tag.name}}</a> {% endfor %}</h5>
+            </div>
+
+            <div class="span2"><a class="btn btn-success btn-small" href="/blog/entry/{{entry.id}}">Read more &raquo;</a></div>
+        </div>
+    </div>
+{% endfor %}
+    <div class="pager">
+        {% if page != num_pages %}
+        <div class="previous">
+            <a href="{{url}}{{page|add:"1"}}">← Older</a>
+        </div>
+        {% endif %}
+        {% if page != 1 %}
+        <div class="next">
+            <a href="{{url}}{{page|add:"-1"}}">Newer →</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+.bio {
+    align: justify;
+}
+
+a {
+    color: #13A60C;
+}
+
+a:hover {
+    color: #0A7004;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-text {
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.entry-title {
+    vertical-align: middle;
+}
+
+.comment-number {
+    text-align: right;
+    line-height: 40px;
+}
+
+.entry-text {
+    padding-bottom: 10px;
+}
+
+#icon-search {
+    color: #FFFFFF;
+}
+
+#sidebar {
+    padding-top: 20px;
+}

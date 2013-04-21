@@ -1,0 +1,27 @@
+<form class="form-search" action="/blog/search/" method="post">{% csrf_token %}
+    <div class="control-group">
+        <div class="controls">
+            <div class="input-append">
+                <input type="text" class="search-query span3" name="search" placeholder="Search">
+                <button type="submit" class="btn btn-success"><i class="icon-search"></i></button>
+            </div>
+        </div>
+    </div>
+</form>
+<h3>About me</h3>
+<div id="bio">
+    <p>Hi! My name is Santi and I'm a Civil Engineer from Barcelona (Spain). I've always liked programming and for that reason I started Computer Science a couple of years ago. Some of my interests right now are functional programming, specially in F#, and web development.</p>
+    <p>I'm also a big Football Club Barcelona fan so you might find me watching football games at the <a href="http://fcbarcelonanyc.com" target="_blank">Official NYC supporters club</a>.</p>
+</div>
+<h3>Latest blog entries</h3>
+<ul class="list-sidebar">
+    {% for entry in latest_entries %}
+        <li><i class="icon-pencil"></i> <a href="/blog/entry/{{entry.id}}">{{ entry.title }}</a></li>
+    {% endfor %}
+</ul>
+<h3>Tags</h3>
+<div id="tag-cloud">
+    {% for tag, size in tag_cloud %}
+        <a href="/blog/tag/{{ tag }}" style="font-size:{{ size }}px">{{ tag }}</a> 
+    {% endfor %}
+</div>
